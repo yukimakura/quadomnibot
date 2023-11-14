@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot name="omnibot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find omnibot_description)/urdf/omniwheel.urdf.xacro" />
+  <xacro:include filename="$(find omnibot_description)/urdf/omnibot.ros2_control.xacro" />
+  <xacro:include filename="$(find omnibot_description)/urdf/inertia_calc.xacro" />
+
+  <link name="base_link" />
+
+  <joint name="body_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="body_link" />
+    <origin xyz="0 0 0.05" rpy="0 0 0" />
+  </joint>
+  <link name="body_link">
+    <visual>
+      <geometry>
+        <box size="0.10 0.10 0.02" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.10 0.10 0.02" />
+      </geometry>
+    </collision>
+    <inertial>
+      <xacro:box_inertial mass="2.0" height="0.10" width="0.10" depth="0.02" ampvalue="1"/>
+    </inertial>
+  </link>
+ 
+  <joint name="front_right_wheel_attach_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="front_right_wheel_attach_link" />
+    <origin xyz="${0.07*cos(radians(135))} ${0.07*sin(radians(135))} 0.019" rpy="0 0 ${radians(135)}" />
+  </joint>
+  <link name="front_right_wheel_attach_link" />
+  <xacro:omni_wheel_set prefix="front_right_wheel" parent="front_right_wheel_attach_link" />
+
+  <joint name="front_left_wheel_attach_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="front_left_wheel_attach_link" />
+    <origin xyz="${0.07*cos(radians(225))} ${0.07*sin(radians(225))} 0.019"
+      rpy="0 0 ${radians(225)}" />
+  </joint>
+  <link name="front_left_wheel_attach_link" />
+  <xacro:omni_wheel_set prefix="front_left_wheel" parent="front_left_wheel_attach_link" />
+
+  <joint name="rear_left_wheel_attach_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="rear_left_wheel_attach_link" />
+    <origin xyz="${0.07*cos(radians(315))} ${0.07*sin(radians(315))} 0.019"
+      rpy="0 0 ${radians(315)}" />
+  </joint>
+  <link name="rear_left_wheel_attach_link" />
+  <xacro:omni_wheel_set prefix="rear_left_wheel" parent="rear_left_wheel_attach_link" />
+
+
+  <joint name="rear_right_wheel_attach_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="rear_right_wheel_attach_link" />
+    <origin xyz="${0.07*cos(radians(45))} ${0.07*sin(radians(45))} 0.019"
+      rpy="0 0 ${radians(45)}" />
+  </joint>
+  <link name="rear_right_wheel_attach_link" />
+  <xacro:omni_wheel_set prefix="rear_right_wheel" parent="rear_right_wheel_attach_link" />
+
+
+  <!-- IMU Link-->
+  <!-- Can be modified with environment variables in /etc/ros/setup.bash -->
+  <link name="imu_link" />
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
+   <!-- lidar -->
+   <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.02" length="0.02" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.02" length="0.02" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child  link="lidar_link"/>
+    <origin xyz="0.02 0 0.0625" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:omnibot_ros2_control name="omnibot_control" use_mock_hardware="true" />
+
+</robot>
