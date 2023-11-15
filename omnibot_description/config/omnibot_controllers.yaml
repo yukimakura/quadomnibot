@@ -6,7 +6,7 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
     omnibot_base_controller:
-      type: quadomni_drive_controller/QuadOmniDriveController
+      type: omni_4wd_controller/Omni4WDController
 
 omnibot_base_controller:
   ros__parameters:
