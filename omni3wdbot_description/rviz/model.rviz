@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1
       Splitter Ratio: 0.5
     Tree Height: 462
   - Class: rviz_common/Selection
@@ -69,136 +68,69 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_attach_link:
+        front_wheel_attach_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        front_left_wheel_barrel_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_left_wheel_barrel_2_link:
+        front_wheel_barrel_1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_3_link:
+        front_wheel_barrel_2_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_4_link:
+        front_wheel_barrel_3_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_5_link:
+        front_wheel_barrel_4_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_6_link:
+        front_wheel_barrel_5_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_7_link:
+        front_wheel_barrel_6_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_barrel_8_link:
+        front_wheel_barrel_7_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        front_left_wheel_housing_link:
+        front_wheel_barrel_8_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_housing_s_link:
+        front_wheel_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        front_left_wheel_motor_body_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_left_wheel_motor_shaft_link:
+        front_wheel_housing_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_wheel_attach_link:
+        front_wheel_housing_s_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        front_right_wheel_barrel_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_2_link:
+        front_wheel_motor_body_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_wheel_barrel_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_4_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_5_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_6_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_7_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_barrel_8_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        front_right_wheel_housing_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_housing_s_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        front_right_wheel_motor_body_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_motor_shaft_link:
+        front_wheel_motor_shaft_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -355,233 +287,19 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz_default_plugins/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_link:
-          Value: true
-        body_link:
-          Value: true
-        front_left_wheel_attach_link:
-          Value: true
-        front_left_wheel_barrel_1_link:
-          Value: true
-        front_left_wheel_barrel_2_link:
-          Value: true
-        front_left_wheel_barrel_3_link:
-          Value: true
-        front_left_wheel_barrel_4_link:
-          Value: true
-        front_left_wheel_barrel_5_link:
-          Value: true
-        front_left_wheel_barrel_6_link:
-          Value: true
-        front_left_wheel_barrel_7_link:
-          Value: true
-        front_left_wheel_barrel_8_link:
-          Value: true
-        front_left_wheel_base_link:
-          Value: true
-        front_left_wheel_housing_link:
-          Value: true
-        front_left_wheel_housing_s_link:
-          Value: true
-        front_left_wheel_motor_body_link:
-          Value: true
-        front_left_wheel_motor_shaft_link:
-          Value: true
-        front_right_wheel_attach_link:
-          Value: true
-        front_right_wheel_barrel_1_link:
-          Value: true
-        front_right_wheel_barrel_2_link:
-          Value: true
-        front_right_wheel_barrel_3_link:
-          Value: true
-        front_right_wheel_barrel_4_link:
-          Value: true
-        front_right_wheel_barrel_5_link:
-          Value: true
-        front_right_wheel_barrel_6_link:
-          Value: true
-        front_right_wheel_barrel_7_link:
-          Value: true
-        front_right_wheel_barrel_8_link:
-          Value: true
-        front_right_wheel_base_link:
-          Value: true
-        front_right_wheel_housing_link:
-          Value: true
-        front_right_wheel_housing_s_link:
-          Value: true
-        front_right_wheel_motor_body_link:
-          Value: true
-        front_right_wheel_motor_shaft_link:
-          Value: true
-        imu_link:
-          Value: true
-        lidar_link:
-          Value: true
-        rear_left_wheel_attach_link:
-          Value: true
-        rear_left_wheel_barrel_1_link:
-          Value: true
-        rear_left_wheel_barrel_2_link:
-          Value: true
-        rear_left_wheel_barrel_3_link:
-          Value: true
-        rear_left_wheel_barrel_4_link:
-          Value: true
-        rear_left_wheel_barrel_5_link:
-          Value: true
-        rear_left_wheel_barrel_6_link:
-          Value: true
-        rear_left_wheel_barrel_7_link:
-          Value: true
-        rear_left_wheel_barrel_8_link:
-          Value: true
-        rear_left_wheel_base_link:
-          Value: true
-        rear_left_wheel_housing_link:
-          Value: true
-        rear_left_wheel_housing_s_link:
-          Value: true
-        rear_left_wheel_motor_body_link:
-          Value: true
-        rear_left_wheel_motor_shaft_link:
-          Value: true
-        rear_right_wheel_attach_link:
-          Value: true
-        rear_right_wheel_barrel_1_link:
-          Value: true
-        rear_right_wheel_barrel_2_link:
-          Value: true
-        rear_right_wheel_barrel_3_link:
-          Value: true
-        rear_right_wheel_barrel_4_link:
-          Value: true
-        rear_right_wheel_barrel_5_link:
-          Value: true
-        rear_right_wheel_barrel_6_link:
-          Value: true
-        rear_right_wheel_barrel_7_link:
-          Value: true
-        rear_right_wheel_barrel_8_link:
-          Value: true
-        rear_right_wheel_base_link:
-          Value: true
-        rear_right_wheel_housing_link:
-          Value: true
-        rear_right_wheel_housing_s_link:
-          Value: true
-        rear_right_wheel_motor_body_link:
-          Value: true
-        rear_right_wheel_motor_shaft_link:
-          Value: true
-      Marker Scale: 0.10000000149011612
+      Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          body_link:
-            {}
-          front_left_wheel_attach_link:
-            front_left_wheel_base_link:
-              front_left_wheel_motor_body_link:
-                front_left_wheel_motor_shaft_link:
-                  front_left_wheel_housing_link:
-                    front_left_wheel_barrel_1_link:
-                      {}
-                    front_left_wheel_barrel_2_link:
-                      {}
-                    front_left_wheel_barrel_3_link:
-                      {}
-                    front_left_wheel_barrel_4_link:
-                      {}
-                    front_left_wheel_housing_s_link:
-                      front_left_wheel_barrel_5_link:
-                        {}
-                      front_left_wheel_barrel_6_link:
-                        {}
-                      front_left_wheel_barrel_7_link:
-                        {}
-                      front_left_wheel_barrel_8_link:
-                        {}
-          front_right_wheel_attach_link:
-            front_right_wheel_base_link:
-              front_right_wheel_motor_body_link:
-                front_right_wheel_motor_shaft_link:
-                  front_right_wheel_housing_link:
-                    front_right_wheel_barrel_1_link:
-                      {}
-                    front_right_wheel_barrel_2_link:
-                      {}
-                    front_right_wheel_barrel_3_link:
-                      {}
-                    front_right_wheel_barrel_4_link:
-                      {}
-                    front_right_wheel_housing_s_link:
-                      front_right_wheel_barrel_5_link:
-                        {}
-                      front_right_wheel_barrel_6_link:
-                        {}
-                      front_right_wheel_barrel_7_link:
-                        {}
-                      front_right_wheel_barrel_8_link:
-                        {}
-          imu_link:
-            {}
-          lidar_link:
-            {}
-          rear_left_wheel_attach_link:
-            rear_left_wheel_base_link:
-              rear_left_wheel_motor_body_link:
-                rear_left_wheel_motor_shaft_link:
-                  rear_left_wheel_housing_link:
-                    rear_left_wheel_barrel_1_link:
-                      {}
-                    rear_left_wheel_barrel_2_link:
-                      {}
-                    rear_left_wheel_barrel_3_link:
-                      {}
-                    rear_left_wheel_barrel_4_link:
-                      {}
-                    rear_left_wheel_housing_s_link:
-                      rear_left_wheel_barrel_5_link:
-                        {}
-                      rear_left_wheel_barrel_6_link:
-                        {}
-                      rear_left_wheel_barrel_7_link:
-                        {}
-                      rear_left_wheel_barrel_8_link:
-                        {}
-          rear_right_wheel_attach_link:
-            rear_right_wheel_base_link:
-              rear_right_wheel_motor_body_link:
-                rear_right_wheel_motor_shaft_link:
-                  rear_right_wheel_housing_link:
-                    rear_right_wheel_barrel_1_link:
-                      {}
-                    rear_right_wheel_barrel_2_link:
-                      {}
-                    rear_right_wheel_barrel_3_link:
-                      {}
-                    rear_right_wheel_barrel_4_link:
-                      {}
-                    rear_right_wheel_housing_s_link:
-                      rear_right_wheel_barrel_5_link:
-                        {}
-                      rear_right_wheel_barrel_6_link:
-                        {}
-                      rear_right_wheel_barrel_7_link:
-                        {}
-                      rear_right_wheel_barrel_8_link:
-                        {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -628,7 +346,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 0.5973727703094482
+      Distance: 0.7994722127914429
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -643,10 +361,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.375201940536499
+      Pitch: -0.5847972631454468
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.5103992223739624
+      Yaw: 2.440391778945923
     Saved: ~
 Window Geometry:
   Displays:
@@ -662,5 +380,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 20
-  Y: 64
+  X: 980
+  Y: 670

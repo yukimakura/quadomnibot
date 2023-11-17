@@ -14,7 +14,7 @@ import os
 def generate_launch_description():
 
     # Constants for paths to different files and folders
-    robot_gazebo_pkg_name = 'omnibot_gazebosim'
+    robot_gazebo_pkg_name = 'omni3wdbot_gazebosim'
     robot_gazebo_pkg_share = FindPackageShare(
         package=robot_gazebo_pkg_name).find(robot_gazebo_pkg_name)
     nav_file_path = os.path.join(
@@ -23,11 +23,11 @@ def generate_launch_description():
     nav2_launch_file_dir = os.path.join(
         get_package_share_directory('nav2_bringup'), 'launch')
     omni_gazebo_launch_file_dir = os.path.join(
-        get_package_share_directory('omnibot_gazebosim'), 'launch')
+        get_package_share_directory('omni3wdbot_gazebosim'), 'launch')
 
     rvizconf = os.path.join(robot_gazebo_pkg_share, 'config', 'nav2.rviz')
     translatotr = Node(
-        package='omnibot_gazebosim',
+        package='omni3wdbot_gazebosim',
         executable='cmdvel_translator',
         name='cmdvel_translator',
                 output='screen')
@@ -45,7 +45,7 @@ def generate_launch_description():
 
     gazebolaunch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [omni_gazebo_launch_file_dir, '/gazebo_cafe_bringup.launch.py'],
+            [omni_gazebo_launch_file_dir, '/gazebo_cafe_bringup_scan_matcher.launch.py'],
         ),
         launch_arguments={
             'use_sim_time': 'True',

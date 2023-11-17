@@ -22,18 +22,19 @@ def generate_launch_description():
     spawn_z_val = LaunchConfiguration('spawn_z_value', default='1.0')
     spawn_yaw_val = LaunchConfiguration('spawn_yaw_value', default='0.0')
     ekf_path = LaunchConfiguration('ekf_param_path', default='')
-
     # Constants for paths to different files and folders
-    robot_pkg_name = 'omnibot_description'
-    robot_gazebo_pkg_name = 'omnibot_gazebosim'
-    robot_name_in_model = 'omnibot'
-    urdf_file_path = 'urdf/omnibot.urdf.xacro'
+    robot_pkg_name = 'omni3wdbot_description'
+    robot_gazebo_pkg_name = 'omni3wdbot_gazebosim'
+    robot_name_in_model = 'omni3wdbot'
+    urdf_file_path = 'urdf/omni3wdbot.urdf.xacro'
 
 
     robot_gazebo_pkg_share = FindPackageShare(
         package=robot_gazebo_pkg_name).find(robot_gazebo_pkg_name)
     robot_pkg_share = FindPackageShare(
         package=robot_pkg_name).find(robot_pkg_name)
+
+    
     
 
     gazebo = IncludeLaunchDescription(
@@ -65,7 +66,7 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["omnibot_base_controller",
+        arguments=["omni3wdbot_base_controller",
                    "--controller-manager", "/controller_manager"],
     )
 

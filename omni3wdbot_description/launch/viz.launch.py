@@ -8,14 +8,14 @@ import os
 
 
 def generate_launch_description():
-    pkgname = "omnibot_description"
+    pkgname = "omni3wdbot_description"
     # Get URDF via xacro
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare(pkgname), "urdf", "omnibot.urdf.xacro"]
+                [FindPackageShare(pkgname), "urdf", "omni3wdbot.urdf.xacro"]
             ),
         ]
     )

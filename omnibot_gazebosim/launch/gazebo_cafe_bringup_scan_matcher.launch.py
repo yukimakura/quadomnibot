@@ -28,11 +28,10 @@ def generate_launch_description():
     robot_gazebo_pkg_share = FindPackageShare(
         package=robot_gazebo_pkg_name).find(robot_gazebo_pkg_name)
     world_path = os.path.join(robot_gazebo_pkg_share, world_file_path)
+    ekf_path = os.path.join(robot_gazebo_pkg_share, "config", 'ekf_config_scan_odomadd.yaml')
 
     omni_gazebo_launch_file_dir = os.path.join(
         get_package_share_directory('omnibot_gazebosim'), 'launch')
-    
-    ekf_path = os.path.join(robot_gazebo_pkg_share, "config", 'ekf_config.yaml')
     
     if(rvizconf == ''):
         rvizconf = os.path.join(robot_gazebo_pkg_share, 'config', 'odom.rviz')
@@ -48,10 +47,28 @@ def generate_launch_description():
             'spawn_y_value': spawn_y_val,
             'spawn_z_value': spawn_z_val,
             'spawn_yaw_value': spawn_yaw_val,
-            'rviz_file_path': rvizconf,
             'ekf_param_path': ekf_path,
+            'rviz_file_path': rvizconf
             
         }.items()
     )
 
-    return LaunchDescription([gazebolaunch])
+    laserscanodom = Node(
+            package='ros2_laser_scan_matcher',
+            executable='laser_scan_matcher',
+            name='laser_scan_matcher',
+            parameters=[
+                {'publish_tf': False},
+                {'laser_frame': 'lidar_link'},
+                {'publish_odom': 'laser_scan_odom'},
+                # {'max_iterations': '15'},
+                ],
+            remappings=[
+                ('/scan', '/omnibot/scan'),
+            ],
+            output='screen')
+
+    return LaunchDescription([
+        gazebolaunch,
+        laserscanodom
+        ])
