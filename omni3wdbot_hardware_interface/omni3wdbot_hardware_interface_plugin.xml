@@ -1,0 +1,10 @@
+<library path="omni3wdbot_hardware_interface">
+  <class
+      name="omni3wdbot_hardware_interface/Omni3wdbotHardwareInterface"
+      type="omni3wdbot_hardware_interface::Omni3wdbotHardwareInterface"
+      base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Hardware Interface for Omni3WDBot
+    </description>
+  </class>
+</library>

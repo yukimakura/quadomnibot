@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="omnibot" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="omni3wdbot" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find omni3wdbot_description)/urdf/omniwheel.urdf.xacro" />
   <xacro:include filename="$(find omni3wdbot_description)/urdf/omni3wdbot.ros2_control.xacro" />
   <xacro:include filename="$(find omni3wdbot_description)/urdf/inertia_calc.xacro" />
@@ -83,6 +83,6 @@
     <origin xyz="0.02 0 0.0625" rpy="0 0 0"/>
   </joint>
 
-  <xacro:omni3wdbot_ros2_control name="omni3wdbot_control" use_mock_hardware="true" />
+  <xacro:omni3wdbot_ros2_control name="omni3wdbot_controller" use_mock_hardware="false" />
 
 </robot>

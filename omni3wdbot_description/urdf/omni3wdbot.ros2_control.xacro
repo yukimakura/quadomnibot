@@ -3,14 +3,45 @@
 
   <xacro:macro name="omni3wdbot_ros2_control" params="name use_mock_hardware">
 
+
     <ros2_control name="${name}" type="system">
-      <!-- <xacro:unless value="${use_mock_hardware}">
+      <!-- 実機 -->
+      <xacro:unless value="${use_mock_hardware}">
         <hardware>
-          <plugin>ros2_control_demo_example_2/DiffBotSystemHardware</plugin>
-          <param name="example_param_hw_start_duration_sec">0</param>
-          <param name="example_param_hw_stop_duration_sec">3.0</param>
+          <plugin>omni3wdbot_hardware_interface/Omni3wdbotHardwareInterface</plugin>
+          <param name="usb_port">/dev/ttyUSB0</param>
+          <param name="baud_rate">115200</param>
+          <param name="stm32_control_rate_hz">100</param>
         </hardware>
-      </xacro:unless> -->
+        <joint name="front_wheel_motor_shaft_joint">
+          <param name="id">F</param>
+          <param name="velocity_P_gain">3.8</param>
+          <param name="velocity_I_gain">360.0</param>
+          <param name="velocity_D_gain">0.0</param>
+          <param name="one_rotate_encoder_pulse">660</param>
+          <command_interface name="velocity" />
+          <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_left_wheel_motor_shaft_joint">
+          <param name="id">RL</param>
+          <param name="velocity_P_gain">3.8</param>
+          <param name="velocity_I_gain">360.0</param>
+          <param name="velocity_D_gain">0.0</param>
+          <param name="one_rotate_encoder_pulse">660</param>
+          <command_interface name="velocity" />
+          <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_right_wheel_motor_shaft_joint">
+          <param name="id">RR</param>
+          <param name="velocity_P_gain">3.8</param>
+          <param name="velocity_I_gain">360.0</param>
+          <param name="velocity_D_gain">0.0</param>
+          <param name="one_rotate_encoder_pulse">660</param>
+          <command_interface name="velocity" />
+          <state_interface name="velocity" />
+        </joint>
+      </xacro:unless>
+      <!-- Sim -->
       <xacro:if value="${use_mock_hardware}">
         <!-- <hardware>
           <plugin>mock_components/GenericSystem</plugin>
@@ -19,22 +50,22 @@
         <hardware>
           <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </hardware>
+        <joint name="front_wheel_motor_shaft_joint">
+          <command_interface name="velocity" />
+          <state_interface name="position" />
+          <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_left_wheel_motor_shaft_joint">
+          <command_interface name="velocity" />
+          <state_interface name="position" />
+          <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_right_wheel_motor_shaft_joint">
+          <command_interface name="velocity" />
+          <state_interface name="position" />
+          <state_interface name="velocity" />
+        </joint>
       </xacro:if>
-      <joint name="front_wheel_motor_shaft_joint">
-        <command_interface name="velocity" />
-        <state_interface name="position" />
-        <state_interface name="velocity" />
-      </joint>
-      <joint name="rear_left_wheel_motor_shaft_joint">
-        <command_interface name="velocity" />
-        <state_interface name="position" />
-        <state_interface name="velocity" />
-      </joint>
-      <joint name="rear_right_wheel_motor_shaft_joint">
-        <command_interface name="velocity" />
-        <state_interface name="position" />
-        <state_interface name="velocity" />
-      </joint>
     </ros2_control>
 
     <xacro:if value="${use_mock_hardware}">
@@ -44,113 +75,113 @@
         </plugin>
       </gazebo>
 
+      <gazebo reference="lidar_link">
+        <material>Gazebo/Black</material>
+        <sensor type="ray" name="lidar">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>true</visualize>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>400</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.14</min_angle>
+                <max_angle>3.14</max_angle>
+              </horizontal>
+            </scan>
+            <range>
+              <min>0.10</min>
+              <max>8.0</max>
+              <resolution>0.75</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </ray>
+          <plugin name="laserscan" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <namespace>omni3wdbot</namespace>
+              <remapping>~/out:=scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>lidar_link</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+
+      <gazebo reference="imu_link">
+        <sensor name="imu_sensor" type="imu">
+          <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+            <ros>
+              <namespace>omni3wdbot</namespace>
+              <remapping>~/out:=imu</remapping>
+            </ros>
+            <initial_orientation_as_reference>false</initial_orientation_as_reference>
+          </plugin>
+          <always_on>true</always_on>
+          <update_rate>100</update_rate>
+          <visualize>true</visualize>
+          <imu>
+            <angular_velocity>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                  <bias_mean>0.0000075</bias_mean>
+                  <bias_stddev>0.0000008</bias_stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                  <bias_mean>0.0000075</bias_mean>
+                  <bias_stddev>0.0000008</bias_stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                  <bias_mean>0.0000075</bias_mean>
+                  <bias_stddev>0.0000008</bias_stddev>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                  <bias_mean>0.1</bias_mean>
+                  <bias_stddev>0.001</bias_stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                  <bias_mean>0.1</bias_mean>
+                  <bias_stddev>0.001</bias_stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                  <bias_mean>0.1</bias_mean>
+                  <bias_stddev>0.001</bias_stddev>
+                </noise>
+              </z>
+            </linear_acceleration>
+          </imu>
+        </sensor>
+      </gazebo>
     </xacro:if>
 
-    <gazebo reference="lidar_link">
-      <material>Gazebo/Black</material>
-      <sensor type="ray" name="lidar">
-        <pose>0 0 0 0 0 0</pose>
-        <visualize>true</visualize>
-        <update_rate>10</update_rate>
-        <ray>
-          <scan>
-            <horizontal>
-              <samples>400</samples>
-              <resolution>1</resolution>
-              <min_angle>-3.14</min_angle>
-              <max_angle>3.14</max_angle>
-            </horizontal>
-          </scan>
-          <range>
-            <min>0.10</min>
-            <max>8.0</max>
-            <resolution>0.75</resolution>
-          </range>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.01</stddev>
-          </noise>
-        </ray>
-        <plugin name="laserscan" filename="libgazebo_ros_ray_sensor.so">
-          <ros>
-            <namespace>omni3wdbot</namespace>
-            <remapping>~/out:=scan</remapping>
-          </ros>
-          <output_type>sensor_msgs/LaserScan</output_type>
-          <frame_name>lidar_link</frame_name>
-        </plugin>
-      </sensor>
-    </gazebo>
-
-    <gazebo reference="imu_link">
-      <sensor name="imu_sensor" type="imu">
-        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-          <ros>
-            <namespace>omni3wdbot</namespace>
-            <remapping>~/out:=imu</remapping>
-          </ros>
-          <initial_orientation_as_reference>false</initial_orientation_as_reference>
-        </plugin>
-        <always_on>true</always_on>
-        <update_rate>100</update_rate>
-        <visualize>true</visualize>
-        <imu>
-          <angular_velocity>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-4</stddev>
-                <bias_mean>0.0000075</bias_mean>
-                <bias_stddev>0.0000008</bias_stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-4</stddev>
-                <bias_mean>0.0000075</bias_mean>
-                <bias_stddev>0.0000008</bias_stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-4</stddev>
-                <bias_mean>0.0000075</bias_mean>
-                <bias_stddev>0.0000008</bias_stddev>
-              </noise>
-            </z>
-          </angular_velocity>
-          <linear_acceleration>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-                <bias_mean>0.1</bias_mean>
-                <bias_stddev>0.001</bias_stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-                <bias_mean>0.1</bias_mean>
-                <bias_stddev>0.001</bias_stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-                <bias_mean>0.1</bias_mean>
-                <bias_stddev>0.001</bias_stddev>
-              </noise>
-            </z>
-          </linear_acceleration>
-        </imu>
-      </sensor>
-    </gazebo>
   </xacro:macro>
 
 </robot>
