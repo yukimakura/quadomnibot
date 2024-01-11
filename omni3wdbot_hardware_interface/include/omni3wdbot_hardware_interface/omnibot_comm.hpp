@@ -5,6 +5,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <queue>
+#define RECEIVEBUFFERSIZE 256
 
 namespace omni3wdbot_hardware_interface
 {
@@ -36,7 +37,9 @@ namespace omni3wdbot_hardware_interface
 
     private:
         boost::thread thread;
-        unsigned char receive_data[128];
+        unsigned char receive_data[RECEIVEBUFFERSIZE];
+        unsigned char last_surplus_data_[RECEIVEBUFFERSIZE];
+        int last_surplus_data_size_ = 0;
         boost::asio::io_service io;
         boost::asio::serial_port serial;
         boost::asio::io_service::work w;

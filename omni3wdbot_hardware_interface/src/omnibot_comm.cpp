@@ -104,22 +104,49 @@ void OmniBotComm::readasync()
                             {
                                 if (!ec)
                                 {
+                                    unsigned char rawbytes_with_surplus_data[1024];
+                                    memset(rawbytes_with_surplus_data, 0, 1024);
+
+                                    int rawbytes_with_surplus_data_count = recv_size + last_surplus_data_size_;
+                                    std::copy(last_surplus_data_, last_surplus_data_ + last_surplus_data_size_, rawbytes_with_surplus_data);
+                                    std::copy(receive_data, receive_data + recv_size, rawbytes_with_surplus_data + last_surplus_data_size_);
+
                                     std::vector<std::string> tokens;
-                                    boost::split(tokens, receive_data, boost::is_any_of("\n"), boost::token_compress_on);
+                                    boost::split(tokens, rawbytes_with_surplus_data, boost::is_any_of("\n"), boost::token_compress_on);
+
+                                    bool is_last_discarded = false;
                                     for (auto &s : tokens)
                                     {
                                         auto data = json::parse(s, nullptr, false);
                                         if (!data.is_discarded())
                                         {
+                                            is_last_discarded = false;
                                             if (!data["F"].is_null() && !data["RR"].is_null() && !data["RL"].is_null() && !data["DelayMs"].is_null())
                                             {
-                                                // std::cout << "read : " << s << std::endl;
                                                 this->latestFeedback = {data["DelayMs"], data["F"], data["RR"], data["RL"]};
-                                                feedbackQueue.push(this->latestFeedback);
+                                                this->feedbackQueue.push(this->latestFeedback);
                                             }
                                         }
+                                        else
+                                            is_last_discarded = true;
+                                    }
+
+                                    if (is_last_discarded)
+                                    {
+                                        std::vector<std::string> recvtokens;
+                                        boost::split(recvtokens, receive_data, boost::is_any_of("\n"), boost::token_compress_on);
+                                        auto last_discard_data = recvtokens.back();
+                                        last_surplus_data_size_ = last_discard_data.length();
+                                        // このターンで受信したデータだけ次回用にバッファリングしておく(配列溢れ対策)
+                                        std::copy(last_discard_data.c_str(), last_discard_data.c_str() + last_surplus_data_size_, last_surplus_data_);
+                                    }
+                                    else
+                                    {
+                                        last_surplus_data_size_ = 0;
+                                        memset(last_surplus_data_, 0, RECEIVEBUFFERSIZE);
                                     }
                                 }
+                                memset(receive_data, 0, RECEIVEBUFFERSIZE);
                                 this->readasync();
                             });
 }
